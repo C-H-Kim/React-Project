@@ -6,9 +6,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+        <p>핀테크 아카데미에 오신 것을 환영합니다.</p>
+        <p>핀테크 아카데미에 오신 것을 환영합니다.</p>
+        <p>핀테크 아카데미에 오신 것을 환영합니다.</p>
         <a
           className="App-link"
           href="https://reactjs.org"
