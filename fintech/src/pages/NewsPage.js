@@ -6,6 +6,7 @@ import ListComponents from "../components/ListComponents";
 
 const NewsPage = () => {
     const [searchInputText, setSearchInputText] = useState("");
+    const [newsList, setNewsList] = useState([]);
 
     const handleSearchInputChange = (e) => {
         const { value } = e.target;
@@ -19,8 +20,9 @@ const NewsPage = () => {
         const requestUrl = `https://newsapi.org/v2/everything?q=${searchInputText}&from=2023-02-01&sortBy=popularity&apiKey=9559bd697b9c4e7dab65cdff4bf7369a&language=ko`;
 
         // axios를 통해서 news API에 요청 보내기
-        axios.get(requestUrl).then((response) => {
-            console.log(response);
+        axios.get(requestUrl).then(({ data }) => {
+            console.log(data);
+            setNewsList(data.articles);
         });
     };
 
@@ -31,7 +33,7 @@ const NewsPage = () => {
                 handleChange={handleSearchInputChange}
                 handleClick={handleSearchButtonClick}
             ></InputComponent>
-            <ListComponents></ListComponents>
+            <ListComponents newsList={newsList}></ListComponents>
         </div>
     );
 };
