@@ -17,6 +17,8 @@ const AuthResultPage = () => {
             redirect_uri: "http://localhost:3000/authResult",
             grant_type: "authorization_code",
         };
+        
+        const parsedSendData = queryString.stringify(sendData);
 
         const option = {
             method: "POST",
@@ -24,11 +26,19 @@ const AuthResultPage = () => {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
             },
-            data: sendData,
+            data: parsedSendData,
         };
 
-        axios(option).then((response) => {
-            console.log(response);
+        axios(option).then(({ data }) => {
+            console.log(data.access_token);
+            console.log(data.refresh_token);
+            if(data.rsp_code !== "O0001") {
+                localStorage.setItem("accessToken(3legged)", data.access_token);
+                localStorage.setItem("userSeqNo", data.user_seq_no);
+            }
+            else {
+                alert("인증에 실패했습니다. 다시 시도해주세요");
+            }
         });
     };
 
