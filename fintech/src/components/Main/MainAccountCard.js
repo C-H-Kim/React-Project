@@ -46,8 +46,9 @@ const MainAccountCard = ({ bankName, fintechUseNo }) => {
 
     const handleBalanceButton = () => {
         console.log("잔액조회 버튼 클릭");
+        window.location.href = `/balance?fintechUseNo=${fintechUseNo}`;
     };
-    
+
     return (
         <CardBlock>
             <CardTitle>{bankName}</CardTitle>
