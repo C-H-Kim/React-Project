@@ -40,7 +40,7 @@ const MainPage = () => {
                     <MainAccountCard
                         key={index}
                         bankName={account.bank_name}
-                        fintechUseNo={account.fintech_use_no}
+                        fintechUseNo={account.fintech_use_num}
                     ></MainAccountCard>
                 );
             })}
