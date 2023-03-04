@@ -41,6 +41,7 @@ const MainPage = () => {
                         key={index}
                         bankName={account.bank_name}
                         fintechUseNo={account.fintech_use_num}
+                        accountNumMask={account.account_num_masked}
                     ></MainAccountCard>
                 );
             })}

@@ -39,14 +39,14 @@ const ButtonBlock = styled.div`
     flex-direction: row;
 `;
 
-const MainAccountCard = ({ bankName, fintechUseNo }) => {
+const MainAccountCard = ({ bankName, fintechUseNo, accountNumMask }) => {
     const handleQrButton = () => {
         console.log("QR 버튼 클릭");
     };
 
     const handleBalanceButton = () => {
         console.log("잔액조회 버튼 클릭");
-        window.location.href = `/balance?fintechUseNo=${fintechUseNo}`;
+        window.location.href = `/balance?fintechUseNo=${fintechUseNo}&accountNumMask=${accountNumMask}`;
     };
 
     return (

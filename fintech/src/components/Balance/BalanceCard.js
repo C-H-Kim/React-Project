@@ -16,6 +16,8 @@ const BankName = styled.div`
 
 const FintechNo = styled.div``;
 
+const AccountNo = styled.div``;
+
 const BalanceText = styled.div`
     font-size: 1.5rem;
     font-weight: bold;
@@ -23,12 +25,13 @@ const BalanceText = styled.div`
     text-align: right;
 `;
 
-const BalanceCard = ({ bankName, fintechNo, balance }) => {
+const BalanceCard = ({ bankName, fintechNo, balance, accountNum }) => {
     return (
         <BalanceBlock>
             <BankName>{bankName}</BankName>
-            <FintechNo>{fintechNo}</FintechNo>
-            <BalanceText>{balance}</BalanceText>
+            <FintechNo>핀테크 이용번호 : {fintechNo}</FintechNo>
+            <AccountNo>계좌번호 : {accountNum}</AccountNo>
+            <BalanceText>{balance}원</BalanceText>
         </BalanceBlock>
     );
 };

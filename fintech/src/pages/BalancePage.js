@@ -7,7 +7,9 @@ import AppHeader from "../components/Common/AppHeader";
 
 const BalancePage = () => {
     const queryStr = useLocation().search;
-    const fintechUseNo = queryString.parse(queryStr).fintechUseNo;
+    const queryObj = queryString.parse(queryStr)
+    const fintechUseNo = queryObj.fintechUseNo;
+    const accountNumMask = queryObj.accountNumMask;
 
     const [accountData, setAccountData] = useState({});
 
@@ -54,6 +56,7 @@ const BalancePage = () => {
                 bankName={accountData.bank_name}
                 fintechNo={fintechUseNo}
                 balance={accountData.balance_amt}
+                accountNum={accountNumMask}
             ></BalanceCard>
         </div>
     );
