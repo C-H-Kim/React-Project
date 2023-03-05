@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import BalanceCard from "../components/Balance/BalanceCard";
 import AppHeader from "../components/Common/AppHeader";
+import TransactionList from "../components/Balance/TransactionList";
 
 const BalancePage = () => {
     const queryStr = useLocation().search;
@@ -12,10 +13,13 @@ const BalancePage = () => {
     const accountNumMask = queryObj.accountNumMask;
 
     const [accountData, setAccountData] = useState({});
+    const [transactionList, setTransactionList] = useState([]);
+
+    const accessToken = localStorage.getItem("accessToken(3legged)");
 
     useEffect(() => {
         getBalance(); 
-        console.log(genTransId());
+        getTransactionList();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -28,8 +32,6 @@ const BalancePage = () => {
     };
 
     const getBalance = () => {
-        const accessToken = localStorage.getItem("accessToken(3legged)");
-
         const option = {
             method: "GET",
             url: "/v2.0/account/balance/fin_num",
@@ -49,6 +51,31 @@ const BalancePage = () => {
         });
     };
 
+    const getTransactionList = () => {
+        const option = {
+            method: "GET",
+            url: "/v2.0/account/transaction_list/fin_num",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+            params: {
+                bank_tran_id: genTransId(),
+                fintech_use_num: fintechUseNo,
+                inquiry_type: "A",
+                inquiry_base: "D",
+                from_date: "20230303",
+                to_date: "20230305",
+                sort_order: "D",
+                tran_dtime: "20230305000000",
+            },
+        };
+
+        axios(option).then(({ data }) => {
+            console.log(data);
+            setTransactionList(data.res_list);
+        });
+    };
+
     return (
         <div>
             <AppHeader title={"잔액 조회"}></AppHeader>
@@ -58,6 +85,7 @@ const BalancePage = () => {
                 balance={accountData.balance_amt}
                 accountNum={accountNumMask}
             ></BalanceCard>
+            <TransactionList transactionList={transactionList}></TransactionList>
         </div>
     );
 };
