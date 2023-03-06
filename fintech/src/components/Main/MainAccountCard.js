@@ -42,6 +42,7 @@ const ButtonBlock = styled.div`
 const MainAccountCard = ({ bankName, fintechUseNo, accountNumMask }) => {
     const handleQrButton = () => {
         console.log("QR 버튼 클릭");
+        window.location.href = `qrcode?fintechUseNo=${fintechUseNo}`;
     };
 
     const handleBalanceButton = () => {
