@@ -16,7 +16,7 @@ const MainPage = () => {
         const userSeqNo = localStorage.getItem("userSeqNo");
 
         const option = {
-            method: "",
+            method: "GET",
             url: "/v2.0/user/me",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
