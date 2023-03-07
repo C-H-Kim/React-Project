@@ -42,12 +42,43 @@ const AuthResultPage = () => {
         });
     };
 
+    const twoLeggedAuthButtonClick = () => {
+        const data = {
+            client_id: "2b0e5c0e-5e81-4281-b336-bf1f058805e2",
+            client_secret: "04dc8a03-bb68-446b-bc5b-7afe1271bebf",
+            scope: "oob",
+            grant_type: "client_credentials",
+        };
+
+        const parsedData = queryString.stringify(data);
+
+        const option = {
+            method: "POST",
+            url: "/oauth/2.0/token",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            },
+            data: parsedData,
+        };
+
+        axios(option).then(({ data }) => {
+            console.log(data.access_token);
+            if(data.rsp_code !== "O0001") {
+                localStorage.setItem("accessToken(2legged)", data.access_token);
+            }
+            else {
+                alert("인증에 실패했습니다. 다시 시도해주세요");
+            }
+        });
+    };
+
     return (
         <div>
             <AppHeader title={"인증완료 / 토큰 요청"}></AppHeader>
             사용자 authCode : {authCode}
             <br />
-            <button onClick={handleAuthButtonClick}>Access Token 요청</button>
+            <button onClick={handleAuthButtonClick}>3 legged Access Token 요청</button>
+            <button onClick={twoLeggedAuthButtonClick}>2 legged Access Token 요청</button>
         </div>
     )
 }
