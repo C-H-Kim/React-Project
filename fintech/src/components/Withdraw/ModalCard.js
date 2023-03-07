@@ -32,12 +32,46 @@ const ModalCard = ({ bankName, fintechUseNo, tofintechno }) => {
     const [amount, setAmount] = useState("");
 
     const genTransId = () => {
-        let countnum = Math.floor(Math.random() * 1000000000) + 1;
-        let transId = "M202300509U" + countnum; //이용기관번호 본인것 입력
+        let countNum = Math.floor(Math.random() * 1000000000) + 1;
+        const clientNo = "M202300509";
+        let transId = clientNo + "U" + countNum;
+
         return transId;
     };
 
-    const handlePayButtonClick = () => { };
+    const handlePayButtonClick = () => {
+        const accessToken = localStorage.getItem("accessToken(3legged)");
+
+        const data = {
+            "bank_tran_id": genTransId(),
+            "cntr_account_type": "N",
+            "cntr_account_num": "100000000001", // 약정계좌의 출금계좌 번호와 같아야 함
+            "dps_print_content": "ㅂㅈㄷㄱ", 
+            "fintech_use_num": fintechUseNo, // 요청전문의 핀테크이용번호와 같아야 함
+            "tran_amt": amount, // 요청전문의 금액과 같아야 함
+            "tran_dtime": "20230303114800",
+            "req_client_name": "홍길동",
+            "req_client_fintech_use_num": tofintechno,
+            "req_client_num": "NICK6253",
+            "transfer_purpose": "ST",
+            "recv_client_name": "김창훈", // 요청전문의 수취인성명과 같아야 함
+            "recv_client_bank_code": "097",
+            "recv_client_account_num": "500000000001"
+        };
+
+        const option = {
+            method: "POST",
+            url: "/v2.0/transfer/withdraw/fin_num",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+            data: data
+        };
+
+        axios(option).then((response) => {
+            console.log(response);
+        });
+    };
 
     const deposit = () => { };
 
